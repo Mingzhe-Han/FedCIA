@@ -29,7 +29,7 @@ class Fedcia(Base_gsp):
             noise = laplace_dist.sample((item_num, item_num))
             all_server_filter += self.client_model[i].filter + noise
 
-        all_server_filter = all_server_filter
+        all_server_filter = all_server_filter / self.client_num
 
         self.client_prediction = list()
         for i in range(self.client_num):
@@ -37,4 +37,4 @@ class Fedcia(Base_gsp):
             local_result = self.client_model[i].getUsersRating(user)
             self.client_model[i].filter = all_server_filter
             agg_result = self.client_model[i].getUsersRating(user)
-            self.client_prediction.append(self.agg_p * agg_result + (1 - self.agg_p) * local_result)
+            self.client_prediction.append(self.agg_p * agg_result + local_result)
