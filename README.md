@@ -16,6 +16,10 @@ For GSP models:
 For the ml100k dataset where only one user in a client:
 `python -m entry.fedcia_param --config=config/ml100k_all/fedmf.ini`.
 
+For the ml100k dataset with different model size or structure:
+`python -m entry.fedcia_param_div --config=config/ml100k/fedall.ini`.
+`python -m entry.fedcia_param_div --config=config/ml100k/fedall_size.ini`.
+
 ## Repeat Experiments
 If the `output file` in the config already exists, the experiment will not start.
 You can change the output in config in [exp] to start a second experiment.

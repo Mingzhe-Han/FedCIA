@@ -86,12 +86,8 @@ class Fedavg(Base):
                 self.client_init()
                 self.logger.info(f"Finish init client model in {(time.time() - start_time):.2f}s")
 
-            # self.model_save('1')
-
             self.train_client_model()
             self.logger.info(f"Finish client train in {(time.time() - start_time):.2f}s")
-
-            # self.model_save('2')
 
             # Upload server from client
             self.client_upload()
@@ -100,8 +96,6 @@ class Fedavg(Base):
             # Download client from server
             self.client_download()
             self.logger.info(f"Finish download in {(time.time() - start_time):.2f}s")
-
-            # self.model_save('3')
 
             # Test server model and Early stop
             valid_metric = self.evaluate_valid()
