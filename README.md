@@ -20,6 +20,8 @@ For the ml100k dataset with different model size or structure:
 `python -m entry.fedcia_param_div --config=config/ml100k/fedall.ini`.
 `python -m entry.fedcia_param_div --config=config/ml100k/fedall_size.ini`.
 
+You can change `self.fast_com` in `flalgorithm/fedcia_param.py` to reduce data in uploading.
+
 ## Repeat Experiments
 If the `output file` in the config already exists, the experiment will not start.
 You can change the output in config in [exp] to start a second experiment.
