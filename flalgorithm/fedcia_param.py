@@ -14,6 +14,7 @@ from .fedavg import Fedavg
 class Fedcia(Fedavg):
     def build_model(self, config):
         model_dict = config['model']
+        self.emb = config.getint('model', 'latent_dim')
         early_stop_num = config.getint("train", "early_stop_num")
         lr = config.getfloat("train", "lr")
         agg_lr = config.getfloat("train", "agg_lr")
@@ -31,6 +32,7 @@ class Fedcia(Fedavg):
         self.early_stopper = EarlyStopper_base(num_trials=early_stop_num, save_path=self.exp_save_name, client_num=self.client_num)
 
     def build_global_config(self, config):
+        self.fast_com = False
         self.epoch = config.getint("train", "epoch")
         self.update_frequence = config.getint("train", "update_frequence")
 
@@ -42,9 +44,13 @@ class Fedcia(Fedavg):
             self.client_model[i] = self.client_model[i].to(self.device)
             laplace_dist = Laplace(0, 0.001)
             noise = laplace_dist.sample((item_num, item_num)).to(self.device)
-            self.server_filter += self.client_model[i].getItemSimilarity().detach() + noise
+            client_filter = self.client_model[i].getItemSimilarity().detach() + noise
+            if self.fast_com:
+                ut, s, vt = torch.linalg.svd(client_filter)
+                client_filter = torch.mm(torch.mm(vt[:self.emb].T, torch.diag_embed(s[:self.emb])), vt[:self.emb])
+            self.server_filter += client_filter
             self.client_model[i] = self.client_model[i].to('cpu')
-        
+
         self.server_filter = self.server_filter / self.client_num
 
     def client_download(self):
