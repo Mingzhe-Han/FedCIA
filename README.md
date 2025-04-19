@@ -1,5 +1,7 @@
 # FedCIA
-A federated recommendation framework for collaborative information aggregation
+This repository is for the paper:
+
+
 
 ## Running
 A `log` file is needed in our file directory.
@@ -15,10 +17,6 @@ For GSP models:
 
 For the ml100k dataset where only one user in a client:
 `python -m entry.fedcia_param --config=config/ml100k_all/fedmf.ini`.
-
-For the ml100k dataset with different model size or structure:
-`python -m entry.fedcia_param_div --config=config/ml100k/fedall.ini`.
-`python -m entry.fedcia_param_div --config=config/ml100k/fedall_size.ini`.
 
 You can change `self.fast_com` in `flalgorithm/fedcia_param.py` to reduce data in uploading.
 
