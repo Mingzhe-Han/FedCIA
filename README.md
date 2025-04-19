@@ -1,7 +1,7 @@
 # FedCIA
-This repository is for the paper:
+This repository is for the paper FedCIA: Federated Collaborative Information Aggregation for Privacy-Preserving Recommendation.
 
-
+The paper has been accepted in SIGIR 2025.
 
 ## Running
 A `log` file is needed in our file directory.
